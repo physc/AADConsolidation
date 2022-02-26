@@ -1,6 +1,6 @@
 Param(
 	[Parameter(Mandatory = $true)][string]$principalName, 
-	[Parameter(Mandatory = $true)][string]$DNSSuffix, 
+	[Parameter(Mandatory = $true)][string]$DNSSuffix 
 	#[Parameter(Mandatory = $true)][string]$subdomainDNSSuffix
 )
 
