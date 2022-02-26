@@ -5,9 +5,9 @@ Write-Warning -Message "This scripts creates new Azure RunAs connection which na
 Write-Host "Installation of the modules needed for this script"
 Install-Module -Name 'Az.ManagedServiceIdentity'
 $CertificateSubjectName = "CN=EU,OU=EU,O=org,L=Brussels,S=Belgium,C=BE"
-$DNSSuffix = "ec.europa.eu"
+$DNSSuffix = "M365x153156.onmicrosoft.com"
 #To add more subdomains, just add them to the following string including the separaton | between each one. For example: "ext.ec.europa.eu|ext2.ec.europa.eu"
-$subdomainDNSSuffix = "ext.ec.europa.eu"
+#$subdomainDNSSuffix = "ext.ec.europa.eu"
 
 #$centralKeyVault = "" # To be created
 
@@ -20,13 +20,13 @@ if(!(Get-ChildItem -Name "aadmigration.tar.gz")){
 tar -xvzf aadmigration.tar.gz
 Set-Location -Path aadmigration
 
-Invoke-WebRequest -URI https://raw.githubusercontent.com/digitc1/aadconsolidation/main/src/target/get-userId.ps1 -OutFile userId.ps1
+Invoke-WebRequest -URI https://raw.githubusercontent.com/physc/AADConsolidation/main/src/target/get-userId.ps1 -OutFile userId.ps1
 
-Invoke-WebRequest -URI https://raw.githubusercontent.com/digitc1/aadconsolidation/main/src/target/set-tenant.ps1 -OutFile tenant.ps1
+Invoke-WebRequest -URI https://raw.githubusercontent.com/physc/AADConsolidation/main/src/target/set-tenant.ps1 -OutFile tenant.ps1
 ./tenant.ps1
 Remove-Item tenant.ps1
 
-Invoke-WebRequest -URI https://raw.githubusercontent.com/digitc1/aadconsolidation/main/src/target/set-subscription.ps1 -OutFile subscription.ps1
+Invoke-WebRequest -URI https://raw.githubusercontent.com/physc/AADConsolidation/main/src/target/set-subscription.ps1 -OutFile subscription.ps1
 $subscriptionList = Get-ChildItem -Directory
 ForEach ($subscription in $subscriptionList){
 	Set-AzContext -SubscriptionId $subscription.Name
