@@ -22,7 +22,7 @@ $roleDefinitions | ForEach-Object -Process {
     }
 }
 
-if(!(Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -eq "autocreate_rg"})){
+<# if(!(Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -eq "autocreate_rg"})){
 	New-AzResourceGroup -Name "autocreate_rg" -Location "westeurope" -Tag @{state="DONOTDELETE"}
 }
 if(!($vault = Get-AzKeyVault | Where-Object {$_.ResourceGroupName -eq "autocreate_rg"})){
@@ -101,7 +101,7 @@ ForEach ($automationAccount in $automationAccounts) {
                 Write-Host "No 'Run as account' linked to the automation account '$($automationAccount.AutomationAccountName)'. Skipping creation of the run as account"
         }
 }
-
+ #>
 # Recreate role assignments
 Write-Host "checking role assignment" -ForegroundColor yellow
 $roleAssignments = Get-Content roleassignments.json | ConvertFrom-Json
@@ -114,7 +114,7 @@ $roleAssignments | ForEach-Object -Process {
         $objectId = ""
 	    switch($_.principalType){
 		    "User" {
-			    $objectId = ../userId.ps1 $principalName.split('_')[0].split('@')[0] $DNSSuffix $subdomainDNSSuffix
+			    $objectId = ../userId.ps1 $principalName.split('_')[0].split('@')[0] $DNSSuffix #$subdomainDNSSuffix
 			    #(Get-AzADUser | Where-Object {$_.Mail -match $principalName.split('_')[0].split('@')[0] -And $_.Mail -like "*$DNSSuffix*"}).Id
 		    }
 		    "Group" {
