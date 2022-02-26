@@ -4,7 +4,9 @@ Param(
 	[Parameter(Mandatory = $true)][string]$subdomainDNSSuffix
 )
 
-$userId=(Get-AzADUser | Where-Object {$_.Mail -match $principalName.split('_')[0].split('@')[0] -And $_.Mail -match "$subdomainDNSSuffix"}).Id
+#$userId=(Get-AzADUser | Where-Object {$_.Mail -match $principalName.split('_')[0].split('@')[0] -And $_.Mail -match "$subdomainDNSSuffix"}).Id
+
+$userId=(Get-AzADUser | Where-Object {$_.Mail -match $principalName.split('_')[0].split('@')[0] -And $_.Mail -match "*$DNSSuffix*"}).Id
 
 if($userId -eq $null){
 	return (Get-AzADUser | Where-Object {$_.Mail -match $principalName.split('_')[0].split('@')[0] -And $_.Mail -like "*$DNSSuffix*"}).Id
