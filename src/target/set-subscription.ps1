@@ -14,7 +14,7 @@ $roleDefinitions | ForEach-Object -Process {
 	$definition.DataActions = $_.permissions.dataActions
 	$definition.NotDataActions = $_.permissions.notDataActions
 	$definition.Name = $_.roleName
-	# $definition.Description = $_.description
+	$definition.Description = $_.description
     if(!(Get-AzRoleDefinition | Where-Object {$_.Name -eq $definition.Name})){
 	    New-AzRoleDefinition -Role $definition
     } else {
