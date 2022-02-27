@@ -114,7 +114,7 @@ $roleAssignments | ForEach-Object -Process {
         $objectId = ""
 	    switch($_.principalType){
 		    "User" {
-			    $objectId = ../userId.ps1 $principalName.split('_')[0].split('@')[0] $DNSSuffix $subdomainDNSSuffix
+			    $objectId = ../userId.ps1 $principalName.split('_')[0].split('@')[0] $DNSSuffix #$subdomainDNSSuffix
 			    #(Get-AzADUser | Where-Object {$_.Mail -match $principalName.split('_')[0].split('@')[0] -And $_.Mail -like "*$DNSSuffix*"}).Id
 		    }
 		    "Group" {
